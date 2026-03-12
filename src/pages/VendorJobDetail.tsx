@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   ArrowLeft, MapPin, Phone, Clock, User, CheckCircle2,
-  Wrench, UserCheck, Send, AlertTriangle, XCircle,
+  UserCheck, Send, AlertTriangle, XCircle,
   FileText, ChevronRight, ExternalLink, Timer, Camera,
 } from 'lucide-react';
 import { useJobs } from '../context/JobContext';
@@ -69,6 +69,7 @@ export default function VendorJobDetail() {
   // ── Handlers ────────────────────────────────────────────────────────────────
 
   function handleAcceptWithEta() {
+    if (!job) return;
     if (!etaChoice.trim()) return;
     updateJobStatus(job.id, 'Accepted', job.assignedVendor ?? 'Vendor');
     addNote(job.id, `ETA to site: ${etaChoice}`, job.assignedVendor ?? 'Vendor', false);
@@ -78,6 +79,7 @@ export default function VendorJobDetail() {
   }
 
   function handleDecline() {
+    if (!job) return;
     if (!declineReason.trim()) return;
     declineJob(job.id, declineReason.trim(), job.assignedVendor ?? 'Vendor');
     addNotification({ title: `${job.id} — Declined`, message: `${job.assignedVendor} declined — returned to queue`, type: 'warning', jobId: job.id });
@@ -85,11 +87,13 @@ export default function VendorJobDetail() {
   }
 
   function handleArrival() {
+    if (!job) return;
     updateJobStatus(job.id, 'In Progress', job.assignedVendor ?? 'Vendor');
     addNotification({ title: `${job.id} — On Site`, message: `${job.assignedVendor} has arrived and started work`, type: 'info', jobId: job.id });
   }
 
   function handleComplete() {
+    if (!job) return;
     if (!completeNote.trim()) return;
     addNote(job.id, completeNote.trim(), job.assignedVendor ?? 'Vendor', false);
     updateJobStatus(job.id, 'Completed', job.assignedVendor ?? 'Vendor');
@@ -99,6 +103,7 @@ export default function VendorJobDetail() {
   }
 
   function handleAddNote() {
+    if (!job) return;
     if (!noteText.trim()) return;
     addNote(job.id, noteText.trim(), job.assignedVendor ?? 'Vendor', false);
     addNotification({ title: `${job.id} — Note Added`, message: 'Vendor added a note', type: 'info', jobId: job.id });

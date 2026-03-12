@@ -91,6 +91,7 @@ export default function StaffJobDetail() {
   const mapsUrl  = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(job.address)}`;
 
   function handleStatusChange(newStatus: JobStatus) {
+    if (!job) return;
     if (newStatus === job.status) return;
     updateJobStatus(job.id, newStatus, 'Staff — Dispatcher');
     addNotification({
@@ -103,6 +104,7 @@ export default function StaffJobDetail() {
   }
 
   function handleVendorAssign(vendorId: string) {
+    if (!job) return;
     const vendor = vendors.find(v => v.id === vendorId);
     if (!vendor) return;
     assignVendor(job.id, vendorId, 'Staff — Dispatcher');
@@ -110,6 +112,7 @@ export default function StaffJobDetail() {
   }
 
   function handleNoteSubmit() {
+    if (!job) return;
     if (!noteText.trim()) return;
     addNote(job.id, noteText.trim(), 'Staff — Dispatcher', isInternal);
     addNotification({ title: `${job.id} — Note Added`, message: isInternal ? 'Internal note added' : 'Note shared with vendor', type: 'info', jobId: job.id });

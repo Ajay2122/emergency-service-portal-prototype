@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, User, Phone, MapPin, FileText, Wrench, AlertOctagon } from 'lucide-react';
+import { X, User, MapPin, FileText, Wrench, AlertOctagon } from 'lucide-react';
 import type { Urgency } from '../../types';
 
 const SERVICE_TYPES = [
