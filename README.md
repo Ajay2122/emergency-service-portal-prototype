@@ -1,4 +1,4 @@
-# DispatchIQ — Emergency Services Job Workflow Prototype
+
 
 A front-end prototype built with **React 19 + TypeScript + Vite + Tailwind CSS** that demonstrates a complete job workflow for an emergency services dispatch platform — connecting internal staff and field vendors to manage urgent service requests.
 
